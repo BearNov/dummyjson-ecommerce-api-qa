@@ -69,7 +69,7 @@ dummyjson-ecommerce-api-qa
 └── README.md
 ```
 
-### Folder Purpose
+## Folder Purpose
 
 | Folder | Purpose |
 |---|---|
