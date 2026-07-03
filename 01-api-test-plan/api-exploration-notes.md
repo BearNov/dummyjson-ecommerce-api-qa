@@ -6,20 +6,20 @@ The purpose of this step is to understand the available API responses before cre
 
 ## Base URL
 
-`https://dummyjson.com`
+[https://dummyjson.com](https://dummyjson.com)
 
 ## Explored Endpoints
 
 | Endpoint | Observation | QA Relevance |
 |---|---|---|
-| `GET /products` | Returns a list of products with pagination metadata such as `total`, `skip`, and `limit` | Useful for validating response structure, required fields, product list behavior, and pagination |
-| `GET /products/1` | Returns a single product object | Useful for validating product details and required product fields |
-| `GET /products/search?q=phone` | Returns products matching a search keyword | Useful for testing search behavior and result relevance |
-| `GET /products/categories` | Returns available product categories | Useful for testing category availability and structure |
-| `GET /carts` | Returns a list of carts with cart totals, products, quantities, and user IDs | Useful for cart validation and later SQL business-rule checks |
-| `GET /carts/1` | Returns a single cart object | Useful for validating cart structure and product details inside a cart |
-| `GET /carts/user/5` | Returns carts connected to a specific user ID | Useful for testing user/cart relationship logic |
-| `GET /users/1` | Returns a single user object with identity, contact, address, company, and additional profile data | Useful for validating user structure and user/cart relationship logic |
+| [`GET /products`](https://dummyjson.com/products) | Returns a list of products with pagination metadata such as `total`, `skip`, and `limit` | Useful for validating response structure, required fields, product list behavior, and pagination |
+| [`GET /products/1`](https://dummyjson.com/products/1) | Returns a single product object | Useful for validating product details and required product fields |
+| [`GET /products/search?q=phone`](https://dummyjson.com/products/search?q=phone) | Returns products matching a search keyword | Useful for testing search behavior and result relevance |
+| [`GET /products/categories`](https://dummyjson.com/products/categories) | Returns available product categories | Useful for testing category availability and structure |
+| [`GET /carts`](https://dummyjson.com/carts) | Returns a list of carts with cart totals, products, quantities, and user IDs | Useful for cart validation and later SQL business-rule checks |
+| [`GET /carts/1`](https://dummyjson.com/carts/1) | Returns a single cart object | Useful for validating cart structure and product details inside a cart |
+| [`GET /carts/user/5`](https://dummyjson.com/carts/user/5) | Returns carts connected to a specific user ID | Useful for testing user/cart relationship logic |
+| [`GET /users/1`](https://dummyjson.com/users/1) | Returns a single user object with identity, contact, address, company, and additional profile data | Useful for validating user structure and user/cart relationship logic |
 
 ## Product Response Structure Observed
 
