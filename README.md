@@ -52,4 +52,18 @@ This project will not include:
 
 ## Project Structure
 
-The project will be organized into separate folders for planning, Postman testing, test cases, SQL validation, Python automation, and final test summary.
+```text
+dummyjson-ecommerce-api-qa
+├── 01-api-test-plan
+│   └── README.md
+├── 02-postman-collection
+│   └── README.md
+├── 03-api-test-cases
+│   └── README.md
+├── 04-sql-validation
+│   └── README.md
+├── 05-python-automation
+│   └── README.md
+├── 06-test-summary
+│   └── README.md
+└── README.md
