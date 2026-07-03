@@ -67,3 +67,15 @@ dummyjson-ecommerce-api-qa
 ├── 06-test-summary
 │   └── README.md
 └── README.md
+```
+
+### Folder Purpose
+
+| Folder | Purpose |
+|---|---|
+| `01-api-test-plan` | Defines the API testing scope, selected endpoints, risks, and test approach |
+| `02-postman-collection` | Stores the Postman collection and environment files |
+| `03-api-test-cases` | Contains documented API test cases and expected results |
+| `04-sql-validation` | Demonstrates local SQL validation using API-like e-commerce data |
+| `05-python-automation` | Contains Python API automation added later in the project |
+| `06-test-summary` | Summarizes test execution results, findings, and limitations |
