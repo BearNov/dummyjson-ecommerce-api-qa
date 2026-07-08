@@ -6,21 +6,31 @@ DummyJSON E-Commerce API QA Portfolio
 
 ## Test Objective
 
-The objective of this project is to test selected DummyJSON e-commerce API endpoints using a structured QA approach.
+I created this test plan to define the API testing scope for the DummyJSON e-commerce domain before building the Postman collection.
 
-The project focuses on API testing, backend validation thinking, business-rule validation, SQL-based data checks using local API-like data, and later beginner-level Python automation.
+The goal of this phase is to show a structured QA approach: selecting relevant endpoints, defining what should be tested, separating in-scope and out-of-scope areas, and documenting risks before execution.
 
-The goal is to demonstrate practical QA skills in a realistic e-commerce API domain.
+This plan focuses on:
+
+- API testing
+- Backend validation thinking
+- Business-rule validation
+- SQL-based data checks using local API-like data
+- Beginner-level Python automation in a later phase
 
 ## API Under Test
 
-Base URL: `https://dummyjson.com`
+Base URL:
+
+```text
+https://dummyjson.com
+```
 
 ## Business Domain
 
-E-Commerce
+The project focuses on an e-commerce API domain.
 
-The selected API areas are related to common e-commerce behavior:
+I selected API areas that represent common e-commerce behavior:
 
 - Product catalog
 - Product search
@@ -31,7 +41,7 @@ The selected API areas are related to common e-commerce behavior:
 
 ## In Scope
 
-The following API areas are included in this project:
+The following API areas are included in this project.
 
 ### Products
 
@@ -64,12 +74,12 @@ The following API areas are included in this project:
 
 | Endpoint | Purpose |
 |---|---|
-| `POST /auth/login` | Test login behavior |
+| `POST /auth/login` | Test valid and invalid login behavior |
 | `GET /auth/me` | Retrieve authenticated user details |
 
 ## Out of Scope
 
-The following areas are not included in the initial project scope:
+I did not include the following areas in the initial project scope:
 
 - Real database validation against DummyJSON internal data
 - Full UI testing
@@ -81,7 +91,7 @@ The following areas are not included in the initial project scope:
 
 ## Test Approach
 
-The project will use a phased testing approach:
+I use a phased testing approach:
 
 1. Explore the API and define endpoint scope
 2. Create a structured API test plan
@@ -95,7 +105,7 @@ The project will use a phased testing approach:
 
 ## Test Types
 
-The project will include:
+The project includes:
 
 - Positive API testing
 - Negative API testing
@@ -111,20 +121,20 @@ The project will include:
 
 ## Test Data Approach
 
-The API testing phase will use data returned by DummyJSON endpoints.
+The API testing phase uses data returned by DummyJSON endpoints.
 
-The SQL validation phase will use a small local dataset based on realistic DummyJSON-style API response structures.
+The SQL validation phase uses a small local dataset based on realistic DummyJSON-style API response structures.
 
-This project will not claim direct access to DummyJSON internal databases.
+I do not claim direct access to DummyJSON internal databases.
 
 ## Risks and Assumptions
 
 | Item | Description |
 |---|---|
 | Public API dependency | DummyJSON is a public API, so behavior or data may change over time |
-| No real database access | SQL checks must be performed on local API-like data, not DummyJSON internal data |
+| No real database access | SQL checks are performed on local API-like data, not DummyJSON internal data |
 | Limited business flow | DummyJSON does not represent a full real e-commerce checkout system |
-| Authentication limitations | Auth testing will stay basic and focused on login/token behavior |
+| Authentication limitations | Auth testing stays basic and focuses on login/token behavior |
 | Beginner automation scope | Python automation will be added later and kept beginner-friendly |
 
 ## Entry Criteria
@@ -132,8 +142,8 @@ This project will not claim direct access to DummyJSON internal databases.
 Testing can begin when:
 
 - The project repository structure is created
-- The API scope is approved
-- The selected endpoints are accessible in the browser
+- The API scope is defined
+- The selected endpoints are accessible
 - The API test plan is documented
 
 ## Exit Criteria
