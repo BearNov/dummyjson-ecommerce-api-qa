@@ -1,17 +1,19 @@
 # Postman Collection
 
-This folder contains the exported Postman assets for the DummyJSON E-Commerce API QA project.
+In this folder, I store the exported Postman assets for the DummyJSON E-Commerce API QA project.
+
+These files allow someone else to import my collection, select the environment, and run the same API tests in Postman.
 
 ## Files
 
 | File | Purpose |
 |---|---|
-| `DummyJSON-E-Commerce-API-QA.postman_collection.json` | Exported Postman collection containing API requests and test scripts |
-| `DummyJSON-Environment.postman_environment.json` | Sanitized Postman environment file with required variables |
+| [`DummyJSON-E-Commerce-API-QA.postman_collection.json`](./DummyJSON-E-Commerce-API-QA.postman_collection.json) | Exported Postman collection containing the API requests and test scripts |
+| [`DummyJSON-Environment.postman_environment.json`](./DummyJSON-Environment.postman_environment.json) | Sanitized Postman environment file with the required variables |
 
 ## Collection Coverage
 
-The Postman collection currently includes 15 API requests across four areas:
+The Postman collection includes 15 API requests across four main areas.
 
 | Area | Covered Requests |
 |---|---|
@@ -22,7 +24,7 @@ The Postman collection currently includes 15 API requests across four areas:
 
 ## Test Coverage
 
-The collection includes 114 automated Postman assertions.
+I added 114 automated Postman assertions.
 
 The assertions validate:
 
@@ -36,15 +38,15 @@ The assertions validate:
 - Cart discounted totals
 - Cart product quantities
 - User identity fields
-- User-cart relationship
+- User/cart relationship
 - Authentication token response
 - Invalid login error handling
 
 ## How to Import and Run
 
-1. Open Postman.
-2. Import `DummyJSON-E-Commerce-API-QA.postman_collection.json`.
-3. Import `DummyJSON-Environment.postman_environment.json`.
+1. Open [Postman](https://www.postman.com/).
+2. Import [`DummyJSON-E-Commerce-API-QA.postman_collection.json`](./DummyJSON-E-Commerce-API-QA.postman_collection.json).
+3. Import [`DummyJSON-Environment.postman_environment.json`](./DummyJSON-Environment.postman_environment.json).
 4. Select the `DummyJSON Environment` environment.
 5. Run the full collection from the Collection Runner.
 
@@ -52,7 +54,7 @@ The assertions validate:
 
 | Variable | Purpose |
 |---|---|
-| `base_url` | Base API URL: `https://dummyjson.com` |
+| `base_url` | Base API URL: [https://dummyjson.com](https://dummyjson.com) |
 | `access_token` | Filled automatically after successful login |
 | `auth_user_id` | Filled automatically from the login response |
 | `auth_username` | Filled automatically from the login response |
@@ -62,13 +64,13 @@ The assertions validate:
 
 The environment file is sanitized.
 
-Actual authentication token values are not committed to this repository.
+I did not commit real authentication token values to this repository.
 
 The `access_token` value is generated during the collection run by the `Login user` request and reused by the `Get current auth user` request.
 
 ## Latest Test Run
 
-The first full Postman collection run completed successfully:
+The first full Postman collection run completed successfully.
 
 | Metric | Result |
 |---|---:|
@@ -78,6 +80,6 @@ The first full Postman collection run completed successfully:
 | Failed tests | 0 |
 | Errors | 0 |
 
-The detailed run summary is documented in:
+The detailed run summary is documented here:
 
-`06-test-summary/postman-test-run-summary.md`
+[`06-test-summary/postman-test-run-summary.md`](../06-test-summary/postman-test-run-summary.md)
