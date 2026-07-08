@@ -1,8 +1,8 @@
 # API Exploration Notes
 
-This document contains initial API exploration notes for the DummyJSON E-Commerce API QA Portfolio project.
+I used this file to document my initial exploration of the DummyJSON E-Commerce API before building the Postman collection and detailed test cases.
 
-The purpose of this step is to understand the available API responses before creating Postman requests and detailed test cases.
+The goal of this step was to understand the available API responses, identify useful fields for testing, and decide which parts of the API should be included in the first version of the project.
 
 ## Base URL
 
@@ -15,11 +15,18 @@ The purpose of this step is to understand the available API responses before cre
 | [`GET /products`](https://dummyjson.com/products) | Returns a list of products with pagination metadata such as `total`, `skip`, and `limit` | Useful for validating response structure, required fields, product list behavior, and pagination |
 | [`GET /products/1`](https://dummyjson.com/products/1) | Returns a single product object | Useful for validating product details and required product fields |
 | [`GET /products/search?q=phone`](https://dummyjson.com/products/search?q=phone) | Returns products matching a search keyword | Useful for testing search behavior and result relevance |
-| [`GET /products/categories`](https://dummyjson.com/products/categories) | Returns available product categories | Useful for testing category availability and structure |
-| [`GET /carts`](https://dummyjson.com/carts) | Returns a list of carts with cart totals, products, quantities, and user IDs | Useful for cart validation and later SQL business-rule checks |
+| [`GET /products?limit=10&skip=10`](https://dummyjson.com/products?limit=10&skip=10) | Returns a limited product list with skipped records | Useful for validating pagination behavior |
+| [`GET /products/categories`](https://dummyjson.com/products/categories) | Returns available product categories | Useful for testing category availability and category structure |
+| [`GET /products/category/smartphones`](https://dummyjson.com/products/category/smartphones) | Returns products from the smartphones category | Useful for validating category filtering |
+| [`GET /carts`](https://dummyjson.com/carts) | Returns a list of carts with totals, products, quantities, and user IDs | Useful for cart validation and later SQL business-rule checks |
 | [`GET /carts/1`](https://dummyjson.com/carts/1) | Returns a single cart object | Useful for validating cart structure and product details inside a cart |
 | [`GET /carts/user/5`](https://dummyjson.com/carts/user/5) | Returns carts connected to a specific user ID | Useful for testing user/cart relationship logic |
-| [`GET /users/1`](https://dummyjson.com/users/1) | Returns a single user object with identity, contact, address, company, and additional profile data | Useful for validating user structure and user/cart relationship logic |
+| [`GET /users`](https://dummyjson.com/users) | Returns a list of users | Useful for validating user structure and checking that user ID 5 exists for cart relationship testing |
+| [`GET /users/1`](https://dummyjson.com/users/1) | Returns a single user object with identity, address, company, and profile data | Useful for validating user structure |
+| [`GET /users/5/carts`](https://dummyjson.com/users/5/carts) | Returns carts connected to user ID 5 | Useful for validating the same user/cart relationship from the user side |
+| [`POST /auth/login`](https://dummyjson.com/auth/login) | Returns authentication tokens for valid demo credentials | Useful for testing login and token generation |
+| [`GET /auth/me`](https://dummyjson.com/auth/me) | Returns the authenticated user when a valid Bearer token is provided | Useful for testing token-based authentication |
+| [`POST /auth/login` with invalid credentials](https://dummyjson.com/auth/login) | Returns an error response | Useful for negative authentication testing |
 
 ## Product Response Structure Observed
 
@@ -55,21 +62,21 @@ Each product object may include fields such as:
 - `images`
 - `thumbnail`
 
-### Nested Product Dimensions Structure
+## Nested Product Dimensions Structure
 
 Each product may include a `dimensions` object.
 
-The `dimensions` object may include fields such as:
+The `dimensions` object may include:
 
 - `width`
 - `height`
 - `depth`
 
-### Nested Product Review Structure
+## Nested Product Review Structure
 
 Each product may include a `reviews` array.
 
-Each review object may include fields such as:
+Each review object may include:
 
 - `rating`
 - `comment`
@@ -77,13 +84,13 @@ Each review object may include fields such as:
 - `reviewerName`
 - `reviewerEmail`
 
-These fields belong to product reviews, not to the main user endpoint.
+I treated these fields as product review data, not as main user endpoint data.
 
-### Nested Product Meta Structure
+## Nested Product Meta Structure
 
 Each product may include a `meta` object.
 
-The `meta` object may include fields such as:
+The `meta` object may include:
 
 - `createdAt`
 - `updatedAt`
@@ -94,7 +101,7 @@ The `meta` object may include fields such as:
 
 Not every product field needs deep validation in this beginner portfolio project.
 
-The most important product fields for API testing are:
+I focused mainly on fields that support API behavior, product data quality, search, category filtering, and later SQL validation:
 
 - `id`
 - `title`
@@ -109,22 +116,20 @@ The most important product fields for API testing are:
 - `images`
 - `thumbnail`
 
-These fields are useful for response validation, required-field checks, product search testing, category testing, and basic product data quality checks.
-
 ## Product Validation Ideas
 
 Product data can support API validation checks such as:
 
 - Product list response returns status code `200`
 - Product list response contains `products`, `total`, `skip`, and `limit`
-- Each product has a unique `id`
+- Each product has a valid `id`
 - Each product has a non-empty `title`
 - Each product has a valid `category`
 - Product `price` is greater than or equal to `0`
 - Product `discountPercentage` is not negative
 - Product `rating` is within a logical range
 - Product `stock` is not negative
-- Product search returns relevant results for the search keyword
+- Product search returns results related to the search keyword
 - Product category endpoint returns products from the selected category
 - Pagination returns the expected number of products based on `limit` and `skip`
 
@@ -160,7 +165,9 @@ Each product inside a cart may include fields such as:
 
 ## Cart Fields Most Relevant for Testing
 
-The most important cart fields for API and SQL validation are:
+I treated carts as one of the most important areas in this project because they support both API validation and business-rule validation.
+
+The most important cart fields are:
 
 - cart `id`
 - cart `products`
@@ -169,21 +176,21 @@ The most important cart fields for API and SQL validation are:
 - cart `userId`
 - cart `totalProducts`
 - cart `totalQuantity`
-- product `id`
-- product `title`
-- product `price`
-- product `quantity`
-- product `total`
-- product `discountPercentage`
-- product `discountedTotal`
-- product `thumbnail`
+- cart product `id`
+- cart product `title`
+- cart product `price`
+- cart product `quantity`
+- cart product `total`
+- cart product `discountPercentage`
+- cart product `discountedTotal`
+- cart product `thumbnail`
 
 ## Cart Validation Ideas
 
-Cart data is useful for business-rule validation because we can later check:
+Cart data is useful for business-rule validation because I can check:
 
-- Product line total: `price * quantity`
-- Product discounted total after discount
+- Product line total
+- Product discounted total
 - Cart total equals the sum of product totals
 - Cart discounted total equals the sum of product discounted totals
 - `totalProducts` matches the number of product lines in the cart
@@ -197,7 +204,11 @@ Cart data is useful for business-rule validation because we can later check:
 
 User endpoints are included mainly because carts are connected to users through `userId`.
 
-The `GET /users/1` endpoint returns a single user object with identity, contact, address, company, and additional profile-related fields.
+The user endpoints help me validate relationships between:
+
+- Users
+- Carts
+- User-specific cart results
 
 A user object may include fields such as:
 
@@ -230,11 +241,11 @@ A user object may include fields such as:
 - `crypto`
 - `role`
 
-### Nested User Address Structure
+## Nested User Address Structure
 
 Each user may include an `address` object.
 
-The `address` object may include fields such as:
+The `address` object may include:
 
 - `address`
 - `city`
@@ -244,11 +255,11 @@ The `address` object may include fields such as:
 - `coordinates`
 - `country`
 
-### Nested User Company Structure
+## Nested User Company Structure
 
 Each user may include a `company` object.
 
-The `company` object may include fields such as:
+The `company` object may include:
 
 - `department`
 - `name`
@@ -259,7 +270,7 @@ The `company` object may include fields such as:
 
 Not every user field needs deep validation in this project.
 
-The most important user fields for this project are:
+I focused mainly on user identity fields that support basic user validation and user/cart relationship testing:
 
 - `id`
 - `firstName`
@@ -267,8 +278,6 @@ The most important user fields for this project are:
 - `email`
 - `username`
 - `role`
-
-These fields are enough for basic user response validation and user/cart relationship checks.
 
 Fields such as `password`, `bank`, `crypto`, `ssn`, and `ein` are not the main testing focus for this beginner portfolio project.
 
@@ -280,23 +289,56 @@ User data can support checks such as:
 - Single user endpoint returns the requested user ID
 - User response contains required identity fields
 - User `id` is numeric
-- User `email` is not empty
+- User `email` is not empty and contains `@`
 - User `username` is not empty
+- User IDs are unique
 - Cart `userId` connects to an existing user
 - User carts endpoint returns carts related to the selected user
 
-## Authentication Exploration Note
+## Authentication Exploration Notes
 
-Authentication endpoints are included in the project scope, but they were not tested in the browser during this initial exploration step.
+Authentication was tested in Postman because login requires a `POST` request body and token handling.
 
-Authentication will be explored later in Postman because login requires a `POST` request body and token handling.
+The authentication flow includes:
 
-## Initial QA Notes
+1. Sending valid login credentials
+2. Receiving an `accessToken` and `refreshToken`
+3. Saving the token into the Postman environment
+4. Using the token in `GET /auth/me`
+5. Comparing the authenticated user response against the login response
 
-- Products and carts are the strongest areas for this project.
-- Product endpoints support catalog, search, category, and pagination testing.
-- Cart endpoints support deeper validation because they include quantities, prices, totals, discounts, and user IDs.
-- User endpoints are useful mainly for validating relationships between users and carts.
-- Authentication will be tested later at a basic level only.
-- SQL validation will use local API-like data and will not claim access to DummyJSON internal databases.
-- Not every returned field needs deep validation. The project will focus on fields that are important for API behavior, business rules, and data validation.
+I also added a negative authentication test for invalid credentials.
+
+## Initial QA Conclusions
+
+After exploring the API, I selected products, carts, users, and authentication as the main project areas.
+
+The strongest validation areas are:
+
+- Product catalog validation
+- Product search validation
+- Product category validation
+- Pagination validation
+- Cart calculation validation
+- User/cart relationship validation
+- Token-based authentication
+- Invalid login negative testing
+
+Products and carts are especially useful because they allow the project to go beyond simple status-code checks.
+
+Cart data supports deeper QA validation because it includes:
+
+- Quantities
+- Prices
+- Totals
+- Discounts
+- User IDs
+- Product IDs
+
+These fields also connect naturally to the later SQL validation phase.
+
+## Important Limitation
+
+DummyJSON does not provide direct database access.
+
+Because of that, the SQL validation phase will use local API-like data and will not claim access to DummyJSON internal databases.
