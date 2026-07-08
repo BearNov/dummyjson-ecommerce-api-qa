@@ -1,0 +1,1433 @@
+{
+  "info": {
+    "_postman_id": "92b063ce-5892-4654-b223-f06457239c5b",
+    "name": "DummyJSON E-Commerce API QA",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56371924",
+    "_collection_link": "https://go.postman.co/collection/56371924-92b063ce-5892-4654-b223-f06457239c5b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get all products",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Response contains products array\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"products\");\r",
+                  "    pm.expect(response.products).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains pagination fields\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"total\");\r",
+                  "    pm.expect(response).to.have.property(\"skip\");\r",
+                  "    pm.expect(response).to.have.property(\"limit\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Products array is not empty\", function () {\r",
+                  "    pm.expect(response.products.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"First product contains required fields\", function () {\r",
+                  "    const product = response.products[0];\r",
+                  "\r",
+                  "    pm.expect(product).to.have.property(\"id\");\r",
+                  "    pm.expect(product).to.have.property(\"title\");\r",
+                  "    pm.expect(product).to.have.property(\"description\");\r",
+                  "    pm.expect(product).to.have.property(\"category\");\r",
+                  "    pm.expect(product).to.have.property(\"price\");\r",
+                  "    pm.expect(product).to.have.property(\"discountPercentage\");\r",
+                  "    pm.expect(product).to.have.property(\"rating\");\r",
+                  "    pm.expect(product).to.have.property(\"stock\");\r",
+                  "    pm.expect(product).to.have.property(\"thumbnail\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Pagination values are numeric\", function () {\r",
+                  "    pm.expect(response.total).to.be.a(\"number\");\r",
+                  "    pm.expect(response.skip).to.be.a(\"number\");\r",
+                  "    pm.expect(response.limit).to.be.a(\"number\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get product by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const product = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Product ID is 1\", function () {\r",
+                  "    pm.expect(product).to.have.property(\"id\");\r",
+                  "    pm.expect(product.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Product contains required fields\", function () {\r",
+                  "    pm.expect(product).to.have.property(\"title\");\r",
+                  "    pm.expect(product).to.have.property(\"description\");\r",
+                  "    pm.expect(product).to.have.property(\"category\");\r",
+                  "    pm.expect(product).to.have.property(\"price\");\r",
+                  "    pm.expect(product).to.have.property(\"discountPercentage\");\r",
+                  "    pm.expect(product).to.have.property(\"rating\");\r",
+                  "    pm.expect(product).to.have.property(\"stock\");\r",
+                  "    pm.expect(product).to.have.property(\"thumbnail\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Product title and category are not empty\", function () {\r",
+                  "    pm.expect(product.title).to.be.a(\"string\").and.not.empty;\r",
+                  "    pm.expect(product.category).to.be.a(\"string\").and.not.empty;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Product numeric fields are valid\", function () {\r",
+                  "    pm.expect(product.price).to.be.a(\"number\");\r",
+                  "    pm.expect(product.price).to.be.at.least(0);\r",
+                  "\r",
+                  "    pm.expect(product.discountPercentage).to.be.a(\"number\");\r",
+                  "    pm.expect(product.discountPercentage).to.be.at.least(0);\r",
+                  "\r",
+                  "    pm.expect(product.rating).to.be.a(\"number\");\r",
+                  "    pm.expect(product.rating).to.be.at.least(0);\r",
+                  "\r",
+                  "    pm.expect(product.stock).to.be.a(\"number\");\r",
+                  "    pm.expect(product.stock).to.be.at.least(0);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search products by keyword",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "const searchKeyword = \"phone\";\r",
+                  "\r",
+                  "pm.test(\"Response contains products array\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"products\");\r",
+                  "    pm.expect(response.products).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains pagination fields\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"total\");\r",
+                  "    pm.expect(response).to.have.property(\"skip\");\r",
+                  "    pm.expect(response).to.have.property(\"limit\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Products array is not empty\", function () {\r",
+                  "    pm.expect(response.products.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Returned products are related to the search keyword\", function () {\r",
+                  "    const allProductsMatch = response.products.every(function (product) {\r",
+                  "        const searchableText = [\r",
+                  "            product.title,\r",
+                  "            product.description,\r",
+                  "            product.category,\r",
+                  "            product.brand,\r",
+                  "            Array.isArray(product.tags) ? product.tags.join(\" \") : \"\"\r",
+                  "        ]\r",
+                  "        .filter(Boolean)\r",
+                  "        .join(\" \")\r",
+                  "        .toLowerCase();\r",
+                  "\r",
+                  "        return searchableText.includes(searchKeyword.toLowerCase());\r",
+                  "    });\r",
+                  "\r",
+                  "    pm.expect(allProductsMatch).to.eql(true);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"First product contains required fields\", function () {\r",
+                  "    const product = response.products[0];\r",
+                  "\r",
+                  "    pm.expect(product).to.have.property(\"id\");\r",
+                  "    pm.expect(product).to.have.property(\"title\");\r",
+                  "    pm.expect(product).to.have.property(\"description\");\r",
+                  "    pm.expect(product).to.have.property(\"category\");\r",
+                  "    pm.expect(product).to.have.property(\"price\");\r",
+                  "    pm.expect(product).to.have.property(\"discountPercentage\");\r",
+                  "    pm.expect(product).to.have.property(\"rating\");\r",
+                  "    pm.expect(product).to.have.property(\"stock\");\r",
+                  "    pm.expect(product).to.have.property(\"thumbnail\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/search?q=phone",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "phone"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get products with pagination",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Response contains products array\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"products\");\r",
+                  "    pm.expect(response.products).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains pagination fields\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"total\");\r",
+                  "    pm.expect(response).to.have.property(\"skip\");\r",
+                  "    pm.expect(response).to.have.property(\"limit\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Pagination skip value is 10\", function () {\r",
+                  "    pm.expect(response.skip).to.eql(10);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Pagination limit value is 10\", function () {\r",
+                  "    pm.expect(response.limit).to.eql(10);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Products array contains 10 products\", function () {\r",
+                  "    pm.expect(response.products.length).to.eql(10);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"First product contains required fields\", function () {\r",
+                  "    const product = response.products[0];\r",
+                  "\r",
+                  "    pm.expect(product).to.have.property(\"id\");\r",
+                  "    pm.expect(product).to.have.property(\"title\");\r",
+                  "    pm.expect(product).to.have.property(\"description\");\r",
+                  "    pm.expect(product).to.have.property(\"category\");\r",
+                  "    pm.expect(product).to.have.property(\"price\");\r",
+                  "    pm.expect(product).to.have.property(\"discountPercentage\");\r",
+                  "    pm.expect(product).to.have.property(\"rating\");\r",
+                  "    pm.expect(product).to.have.property(\"stock\");\r",
+                  "    pm.expect(product).to.have.property(\"thumbnail\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products?limit=10&skip=10",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "skip",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get product categories",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const categories = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    pm.expect(categories).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Categories array is not empty\", function () {\r",
+                  "    pm.expect(categories.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Each category contains required fields\", function () {\r",
+                  "    categories.forEach(function (category) {\r",
+                  "        pm.expect(category).to.have.property(\"slug\");\r",
+                  "        pm.expect(category).to.have.property(\"name\");\r",
+                  "        pm.expect(category).to.have.property(\"url\");\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Each category field is not empty\", function () {\r",
+                  "    categories.forEach(function (category) {\r",
+                  "        pm.expect(category.slug).to.be.a(\"string\").and.not.empty;\r",
+                  "        pm.expect(category.name).to.be.a(\"string\").and.not.empty;\r",
+                  "        pm.expect(category.url).to.be.a(\"string\").and.not.empty;\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Smartphones category exists\", function () {\r",
+                  "    const categorySlugs = categories.map(function (category) {\r",
+                  "        return category.slug;\r",
+                  "    });\r",
+                  "\r",
+                  "    pm.expect(categorySlugs).to.include(\"smartphones\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get products by category",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "const expectedCategory = \"smartphones\";\r",
+                  "\r",
+                  "pm.test(\"Response contains products array\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"products\");\r",
+                  "    pm.expect(response.products).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains pagination fields\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"total\");\r",
+                  "    pm.expect(response).to.have.property(\"skip\");\r",
+                  "    pm.expect(response).to.have.property(\"limit\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Products array is not empty\", function () {\r",
+                  "    pm.expect(response.products.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"All returned products belong to smartphones category\", function () {\r",
+                  "    response.products.forEach(function (product) {\r",
+                  "        pm.expect(product.category).to.eql(expectedCategory);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"First product contains required fields\", function () {\r",
+                  "    const product = response.products[0];\r",
+                  "\r",
+                  "    pm.expect(product).to.have.property(\"id\");\r",
+                  "    pm.expect(product).to.have.property(\"title\");\r",
+                  "    pm.expect(product).to.have.property(\"description\");\r",
+                  "    pm.expect(product).to.have.property(\"category\");\r",
+                  "    pm.expect(product).to.have.property(\"price\");\r",
+                  "    pm.expect(product).to.have.property(\"discountPercentage\");\r",
+                  "    pm.expect(product).to.have.property(\"rating\");\r",
+                  "    pm.expect(product).to.have.property(\"stock\");\r",
+                  "    pm.expect(product).to.have.property(\"thumbnail\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Pagination values are numeric\", function () {\r",
+                  "    pm.expect(response.total).to.be.a(\"number\");\r",
+                  "    pm.expect(response.skip).to.be.a(\"number\");\r",
+                  "    pm.expect(response.limit).to.be.a(\"number\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/category/smartphones",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products",
+                "category",
+                "smartphones"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Carts",
+      "item": [
+        {
+          "name": "Get all carts",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "const tolerance = 0.1;\r",
+                  "\r",
+                  "pm.test(\"Response contains carts array\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"carts\");\r",
+                  "    pm.expect(response.carts).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains pagination fields\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"total\");\r",
+                  "    pm.expect(response).to.have.property(\"skip\");\r",
+                  "    pm.expect(response).to.have.property(\"limit\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Carts array is not empty\", function () {\r",
+                  "    pm.expect(response.carts.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Each cart contains required fields\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        pm.expect(cart).to.have.property(\"id\");\r",
+                  "        pm.expect(cart).to.have.property(\"products\");\r",
+                  "        pm.expect(cart).to.have.property(\"total\");\r",
+                  "        pm.expect(cart).to.have.property(\"discountedTotal\");\r",
+                  "        pm.expect(cart).to.have.property(\"userId\");\r",
+                  "        pm.expect(cart).to.have.property(\"totalProducts\");\r",
+                  "        pm.expect(cart).to.have.property(\"totalQuantity\");\r",
+                  "\r",
+                  "        pm.expect(cart.products).to.be.an(\"array\");\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Each cart product contains required fields\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        cart.products.forEach(function (product) {\r",
+                  "            pm.expect(product).to.have.property(\"id\");\r",
+                  "            pm.expect(product).to.have.property(\"title\");\r",
+                  "            pm.expect(product).to.have.property(\"price\");\r",
+                  "            pm.expect(product).to.have.property(\"quantity\");\r",
+                  "            pm.expect(product).to.have.property(\"total\");\r",
+                  "            pm.expect(product).to.have.property(\"discountPercentage\");\r",
+                  "            pm.expect(product).to.have.property(\"discountedTotal\");\r",
+                  "            pm.expect(product).to.have.property(\"thumbnail\");\r",
+                  "        });\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart totalProducts matches number of product lines\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        pm.expect(cart.totalProducts).to.eql(cart.products.length);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart totalQuantity matches sum of product quantities\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        const quantitySum = cart.products.reduce(function (sum, product) {\r",
+                  "            return sum + product.quantity;\r",
+                  "        }, 0);\r",
+                  "\r",
+                  "        pm.expect(cart.totalQuantity).to.eql(quantitySum);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart total matches sum of product totals\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        const productTotalSum = cart.products.reduce(function (sum, product) {\r",
+                  "            return sum + product.total;\r",
+                  "        }, 0);\r",
+                  "\r",
+                  "        pm.expect(Math.abs(cart.total - productTotalSum)).to.be.below(tolerance);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart discountedTotal matches sum of product discounted totals\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        const discountedTotalSum = cart.products.reduce(function (sum, product) {\r",
+                  "            return sum + product.discountedTotal;\r",
+                  "        }, 0);\r",
+                  "\r",
+                  "        pm.expect(Math.abs(cart.discountedTotal - discountedTotalSum)).to.be.below(tolerance);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart and product numeric values are valid\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        pm.expect(cart.id).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.total).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.discountedTotal).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.userId).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.totalProducts).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.totalQuantity).to.be.a(\"number\");\r",
+                  "\r",
+                  "        cart.products.forEach(function (product) {\r",
+                  "            pm.expect(product.id).to.be.a(\"number\");\r",
+                  "            pm.expect(product.price).to.be.a(\"number\");\r",
+                  "            pm.expect(product.quantity).to.be.a(\"number\");\r",
+                  "            pm.expect(product.total).to.be.a(\"number\");\r",
+                  "            pm.expect(product.discountPercentage).to.be.a(\"number\");\r",
+                  "            pm.expect(product.discountedTotal).to.be.a(\"number\");\r",
+                  "\r",
+                  "            pm.expect(product.price).to.be.at.least(0);\r",
+                  "            pm.expect(product.quantity).to.be.above(0);\r",
+                  "            pm.expect(product.total).to.be.at.least(0);\r",
+                  "            pm.expect(product.discountPercentage).to.be.at.least(0);\r",
+                  "            pm.expect(product.discountedTotal).to.be.at.least(0);\r",
+                  "        });\r",
+                  "    });\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/carts",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "carts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get cart by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const cart = pm.response.json();\r",
+                  "const tolerance = 0.1;\r",
+                  "\r",
+                  "pm.test(\"Cart ID is 1\", function () {\r",
+                  "    pm.expect(cart).to.have.property(\"id\");\r",
+                  "    pm.expect(cart.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart contains required fields\", function () {\r",
+                  "    pm.expect(cart).to.have.property(\"products\");\r",
+                  "    pm.expect(cart).to.have.property(\"total\");\r",
+                  "    pm.expect(cart).to.have.property(\"discountedTotal\");\r",
+                  "    pm.expect(cart).to.have.property(\"userId\");\r",
+                  "    pm.expect(cart).to.have.property(\"totalProducts\");\r",
+                  "    pm.expect(cart).to.have.property(\"totalQuantity\");\r",
+                  "\r",
+                  "    pm.expect(cart.products).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Products array is not empty\", function () {\r",
+                  "    pm.expect(cart.products.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Each cart product contains required fields\", function () {\r",
+                  "    cart.products.forEach(function (product) {\r",
+                  "        pm.expect(product).to.have.property(\"id\");\r",
+                  "        pm.expect(product).to.have.property(\"title\");\r",
+                  "        pm.expect(product).to.have.property(\"price\");\r",
+                  "        pm.expect(product).to.have.property(\"quantity\");\r",
+                  "        pm.expect(product).to.have.property(\"total\");\r",
+                  "        pm.expect(product).to.have.property(\"discountPercentage\");\r",
+                  "        pm.expect(product).to.have.property(\"discountedTotal\");\r",
+                  "        pm.expect(product).to.have.property(\"thumbnail\");\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart totalProducts matches number of product lines\", function () {\r",
+                  "    pm.expect(cart.totalProducts).to.eql(cart.products.length);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart totalQuantity matches sum of product quantities\", function () {\r",
+                  "    const quantitySum = cart.products.reduce(function (sum, product) {\r",
+                  "        return sum + product.quantity;\r",
+                  "    }, 0);\r",
+                  "\r",
+                  "    pm.expect(cart.totalQuantity).to.eql(quantitySum);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart total matches sum of product totals\", function () {\r",
+                  "    const productTotalSum = cart.products.reduce(function (sum, product) {\r",
+                  "        return sum + product.total;\r",
+                  "    }, 0);\r",
+                  "\r",
+                  "    pm.expect(Math.abs(cart.total - productTotalSum)).to.be.below(tolerance);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart discountedTotal matches sum of product discounted totals\", function () {\r",
+                  "    const discountedTotalSum = cart.products.reduce(function (sum, product) {\r",
+                  "        return sum + product.discountedTotal;\r",
+                  "    }, 0);\r",
+                  "\r",
+                  "    pm.expect(Math.abs(cart.discountedTotal - discountedTotalSum)).to.be.below(tolerance);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart and product numeric values are valid\", function () {\r",
+                  "    pm.expect(cart.id).to.be.a(\"number\");\r",
+                  "    pm.expect(cart.total).to.be.a(\"number\");\r",
+                  "    pm.expect(cart.discountedTotal).to.be.a(\"number\");\r",
+                  "    pm.expect(cart.userId).to.be.a(\"number\");\r",
+                  "    pm.expect(cart.totalProducts).to.be.a(\"number\");\r",
+                  "    pm.expect(cart.totalQuantity).to.be.a(\"number\");\r",
+                  "\r",
+                  "    cart.products.forEach(function (product) {\r",
+                  "        pm.expect(product.id).to.be.a(\"number\");\r",
+                  "        pm.expect(product.price).to.be.a(\"number\");\r",
+                  "        pm.expect(product.quantity).to.be.a(\"number\");\r",
+                  "        pm.expect(product.total).to.be.a(\"number\");\r",
+                  "        pm.expect(product.discountPercentage).to.be.a(\"number\");\r",
+                  "        pm.expect(product.discountedTotal).to.be.a(\"number\");\r",
+                  "\r",
+                  "        pm.expect(product.price).to.be.at.least(0);\r",
+                  "        pm.expect(product.quantity).to.be.above(0);\r",
+                  "        pm.expect(product.total).to.be.at.least(0);\r",
+                  "        pm.expect(product.discountPercentage).to.be.at.least(0);\r",
+                  "        pm.expect(product.discountedTotal).to.be.at.least(0);\r",
+                  "    });\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/carts/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "carts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get carts by user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "const expectedUserId = 5;\r",
+                  "const tolerance = 0.1;\r",
+                  "\r",
+                  "pm.test(\"Response contains carts array\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"carts\");\r",
+                  "    pm.expect(response.carts).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains pagination fields\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"total\");\r",
+                  "    pm.expect(response).to.have.property(\"skip\");\r",
+                  "    pm.expect(response).to.have.property(\"limit\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Carts array is not empty\", function () {\r",
+                  "    pm.expect(response.carts.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"All returned carts belong to user ID 5\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        pm.expect(cart.userId).to.eql(expectedUserId);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Each cart contains required fields\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        pm.expect(cart).to.have.property(\"id\");\r",
+                  "        pm.expect(cart).to.have.property(\"products\");\r",
+                  "        pm.expect(cart).to.have.property(\"total\");\r",
+                  "        pm.expect(cart).to.have.property(\"discountedTotal\");\r",
+                  "        pm.expect(cart).to.have.property(\"userId\");\r",
+                  "        pm.expect(cart).to.have.property(\"totalProducts\");\r",
+                  "        pm.expect(cart).to.have.property(\"totalQuantity\");\r",
+                  "\r",
+                  "        pm.expect(cart.products).to.be.an(\"array\");\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Each cart product contains required fields\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        cart.products.forEach(function (product) {\r",
+                  "            pm.expect(product).to.have.property(\"id\");\r",
+                  "            pm.expect(product).to.have.property(\"title\");\r",
+                  "            pm.expect(product).to.have.property(\"price\");\r",
+                  "            pm.expect(product).to.have.property(\"quantity\");\r",
+                  "            pm.expect(product).to.have.property(\"total\");\r",
+                  "            pm.expect(product).to.have.property(\"discountPercentage\");\r",
+                  "            pm.expect(product).to.have.property(\"discountedTotal\");\r",
+                  "            pm.expect(product).to.have.property(\"thumbnail\");\r",
+                  "        });\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart totalProducts matches number of product lines\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        pm.expect(cart.totalProducts).to.eql(cart.products.length);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart totalQuantity matches sum of product quantities\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        const quantitySum = cart.products.reduce(function (sum, product) {\r",
+                  "            return sum + product.quantity;\r",
+                  "        }, 0);\r",
+                  "\r",
+                  "        pm.expect(cart.totalQuantity).to.eql(quantitySum);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart total matches sum of product totals\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        const productTotalSum = cart.products.reduce(function (sum, product) {\r",
+                  "            return sum + product.total;\r",
+                  "        }, 0);\r",
+                  "\r",
+                  "        pm.expect(Math.abs(cart.total - productTotalSum)).to.be.below(tolerance);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart discountedTotal matches sum of product discounted totals\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        const discountedTotalSum = cart.products.reduce(function (sum, product) {\r",
+                  "            return sum + product.discountedTotal;\r",
+                  "        }, 0);\r",
+                  "\r",
+                  "        pm.expect(Math.abs(cart.discountedTotal - discountedTotalSum)).to.be.below(tolerance);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart and product numeric values are valid\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        pm.expect(cart.id).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.total).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.discountedTotal).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.userId).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.totalProducts).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.totalQuantity).to.be.a(\"number\");\r",
+                  "\r",
+                  "        cart.products.forEach(function (product) {\r",
+                  "            pm.expect(product.id).to.be.a(\"number\");\r",
+                  "            pm.expect(product.price).to.be.a(\"number\");\r",
+                  "            pm.expect(product.quantity).to.be.a(\"number\");\r",
+                  "            pm.expect(product.total).to.be.a(\"number\");\r",
+                  "            pm.expect(product.discountPercentage).to.be.a(\"number\");\r",
+                  "            pm.expect(product.discountedTotal).to.be.a(\"number\");\r",
+                  "\r",
+                  "            pm.expect(product.price).to.be.at.least(0);\r",
+                  "            pm.expect(product.quantity).to.be.above(0);\r",
+                  "            pm.expect(product.total).to.be.at.least(0);\r",
+                  "            pm.expect(product.discountPercentage).to.be.at.least(0);\r",
+                  "            pm.expect(product.discountedTotal).to.be.at.least(0);\r",
+                  "        });\r",
+                  "    });\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/carts/user/5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "carts",
+                "user",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get all users",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Response contains users array\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"users\");\r",
+                  "    pm.expect(response.users).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains pagination fields\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"total\");\r",
+                  "    pm.expect(response).to.have.property(\"skip\");\r",
+                  "    pm.expect(response).to.have.property(\"limit\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Users array is not empty\", function () {\r",
+                  "    pm.expect(response.users.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Each user contains required identity fields\", function () {\r",
+                  "    response.users.forEach(function (user) {\r",
+                  "        pm.expect(user).to.have.property(\"id\");\r",
+                  "        pm.expect(user).to.have.property(\"firstName\");\r",
+                  "        pm.expect(user).to.have.property(\"lastName\");\r",
+                  "        pm.expect(user).to.have.property(\"email\");\r",
+                  "        pm.expect(user).to.have.property(\"username\");\r",
+                  "        pm.expect(user).to.have.property(\"role\");\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User identity fields are valid\", function () {\r",
+                  "    response.users.forEach(function (user) {\r",
+                  "        pm.expect(user.id).to.be.a(\"number\");\r",
+                  "        pm.expect(user.firstName).to.be.a(\"string\").and.not.empty;\r",
+                  "        pm.expect(user.lastName).to.be.a(\"string\").and.not.empty;\r",
+                  "        pm.expect(user.email).to.be.a(\"string\").and.include(\"@\");\r",
+                  "        pm.expect(user.username).to.be.a(\"string\").and.not.empty;\r",
+                  "        pm.expect(user.role).to.be.a(\"string\").and.not.empty;\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User IDs are unique\", function () {\r",
+                  "    const userIds = response.users.map(function (user) {\r",
+                  "        return user.id;\r",
+                  "    });\r",
+                  "\r",
+                  "    const uniqueUserIds = new Set(userIds);\r",
+                  "\r",
+                  "    pm.expect(uniqueUserIds.size).to.eql(userIds.length);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User ID 5 exists for cart relationship testing\", function () {\r",
+                  "    const userIds = response.users.map(function (user) {\r",
+                  "        return user.id;\r",
+                  "    });\r",
+                  "\r",
+                  "    pm.expect(userIds).to.include(5);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get user by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const user = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"User ID is 1\", function () {\r",
+                  "    pm.expect(user).to.have.property(\"id\");\r",
+                  "    pm.expect(user.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User contains required identity fields\", function () {\r",
+                  "    pm.expect(user).to.have.property(\"firstName\");\r",
+                  "    pm.expect(user).to.have.property(\"lastName\");\r",
+                  "    pm.expect(user).to.have.property(\"email\");\r",
+                  "    pm.expect(user).to.have.property(\"username\");\r",
+                  "    pm.expect(user).to.have.property(\"role\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User identity fields are valid\", function () {\r",
+                  "    pm.expect(user.firstName).to.be.a(\"string\").and.not.empty;\r",
+                  "    pm.expect(user.lastName).to.be.a(\"string\").and.not.empty;\r",
+                  "    pm.expect(user.email).to.be.a(\"string\").and.include(\"@\");\r",
+                  "    pm.expect(user.username).to.be.a(\"string\").and.not.empty;\r",
+                  "    pm.expect(user.role).to.be.a(\"string\").and.not.empty;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User contains address object\", function () {\r",
+                  "    pm.expect(user).to.have.property(\"address\");\r",
+                  "    pm.expect(user.address).to.be.an(\"object\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User address contains basic fields\", function () {\r",
+                  "    pm.expect(user.address).to.have.property(\"address\");\r",
+                  "    pm.expect(user.address).to.have.property(\"city\");\r",
+                  "    pm.expect(user.address).to.have.property(\"country\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User contains company object\", function () {\r",
+                  "    pm.expect(user).to.have.property(\"company\");\r",
+                  "    pm.expect(user.company).to.be.an(\"object\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User company contains basic fields\", function () {\r",
+                  "    pm.expect(user.company).to.have.property(\"department\");\r",
+                  "    pm.expect(user.company).to.have.property(\"name\");\r",
+                  "    pm.expect(user.company).to.have.property(\"title\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get user carts",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "const expectedUserId = 5;\r",
+                  "const tolerance = 0.1;\r",
+                  "\r",
+                  "pm.test(\"Response contains carts array\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"carts\");\r",
+                  "    pm.expect(response.carts).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains pagination fields\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"total\");\r",
+                  "    pm.expect(response).to.have.property(\"skip\");\r",
+                  "    pm.expect(response).to.have.property(\"limit\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Carts array is not empty\", function () {\r",
+                  "    pm.expect(response.carts.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"All returned carts belong to user ID 5\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        pm.expect(cart.userId).to.eql(expectedUserId);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Each cart contains required fields\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        pm.expect(cart).to.have.property(\"id\");\r",
+                  "        pm.expect(cart).to.have.property(\"products\");\r",
+                  "        pm.expect(cart).to.have.property(\"total\");\r",
+                  "        pm.expect(cart).to.have.property(\"discountedTotal\");\r",
+                  "        pm.expect(cart).to.have.property(\"userId\");\r",
+                  "        pm.expect(cart).to.have.property(\"totalProducts\");\r",
+                  "        pm.expect(cart).to.have.property(\"totalQuantity\");\r",
+                  "\r",
+                  "        pm.expect(cart.products).to.be.an(\"array\");\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Each cart product contains required fields\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        cart.products.forEach(function (product) {\r",
+                  "            pm.expect(product).to.have.property(\"id\");\r",
+                  "            pm.expect(product).to.have.property(\"title\");\r",
+                  "            pm.expect(product).to.have.property(\"price\");\r",
+                  "            pm.expect(product).to.have.property(\"quantity\");\r",
+                  "            pm.expect(product).to.have.property(\"total\");\r",
+                  "            pm.expect(product).to.have.property(\"discountPercentage\");\r",
+                  "            pm.expect(product).to.have.property(\"discountedTotal\");\r",
+                  "            pm.expect(product).to.have.property(\"thumbnail\");\r",
+                  "        });\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart totalProducts matches number of product lines\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        pm.expect(cart.totalProducts).to.eql(cart.products.length);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart totalQuantity matches sum of product quantities\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        const quantitySum = cart.products.reduce(function (sum, product) {\r",
+                  "            return sum + product.quantity;\r",
+                  "        }, 0);\r",
+                  "\r",
+                  "        pm.expect(cart.totalQuantity).to.eql(quantitySum);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart total matches sum of product totals\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        const productTotalSum = cart.products.reduce(function (sum, product) {\r",
+                  "            return sum + product.total;\r",
+                  "        }, 0);\r",
+                  "\r",
+                  "        pm.expect(Math.abs(cart.total - productTotalSum)).to.be.below(tolerance);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart discountedTotal matches sum of product discounted totals\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        const discountedTotalSum = cart.products.reduce(function (sum, product) {\r",
+                  "            return sum + product.discountedTotal;\r",
+                  "        }, 0);\r",
+                  "\r",
+                  "        pm.expect(Math.abs(cart.discountedTotal - discountedTotalSum)).to.be.below(tolerance);\r",
+                  "    });\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart and product numeric values are valid\", function () {\r",
+                  "    response.carts.forEach(function (cart) {\r",
+                  "        pm.expect(cart.id).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.total).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.discountedTotal).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.userId).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.totalProducts).to.be.a(\"number\");\r",
+                  "        pm.expect(cart.totalQuantity).to.be.a(\"number\");\r",
+                  "\r",
+                  "        cart.products.forEach(function (product) {\r",
+                  "            pm.expect(product.id).to.be.a(\"number\");\r",
+                  "            pm.expect(product.price).to.be.a(\"number\");\r",
+                  "            pm.expect(product.quantity).to.be.a(\"number\");\r",
+                  "            pm.expect(product.total).to.be.a(\"number\");\r",
+                  "            pm.expect(product.discountPercentage).to.be.a(\"number\");\r",
+                  "            pm.expect(product.discountedTotal).to.be.a(\"number\");\r",
+                  "\r",
+                  "            pm.expect(product.price).to.be.at.least(0);\r",
+                  "            pm.expect(product.quantity).to.be.above(0);\r",
+                  "            pm.expect(product.total).to.be.at.least(0);\r",
+                  "            pm.expect(product.discountPercentage).to.be.at.least(0);\r",
+                  "            pm.expect(product.discountedTotal).to.be.at.least(0);\r",
+                  "        });\r",
+                  "    });\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/5/carts",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                "5",
+                "carts"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Response contains access and refresh tokens\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"accessToken\");\r",
+                  "    pm.expect(response).to.have.property(\"refreshToken\");\r",
+                  "\r",
+                  "    pm.expect(response.accessToken).to.be.a(\"string\").and.not.empty;\r",
+                  "    pm.expect(response.refreshToken).to.be.a(\"string\").and.not.empty;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Logged-in user ID is 1\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"id\");\r",
+                  "    pm.expect(response.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Logged-in username is emilys\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"username\");\r",
+                  "    pm.expect(response.username).to.eql(\"emilys\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains user identity fields\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"email\");\r",
+                  "    pm.expect(response).to.have.property(\"firstName\");\r",
+                  "    pm.expect(response).to.have.property(\"lastName\");\r",
+                  "\r",
+                  "    pm.expect(response.email).to.be.a(\"string\").and.include(\"@\");\r",
+                  "    pm.expect(response.firstName).to.be.a(\"string\").and.not.empty;\r",
+                  "    pm.expect(response.lastName).to.be.a(\"string\").and.not.empty;\r",
+                  "});\r",
+                  "\r",
+                  "pm.environment.set(\"access_token\", response.accessToken);\r",
+                  "pm.environment.set(\"auth_user_id\", response.id);\r",
+                  "pm.environment.set(\"auth_username\", response.username);\r",
+                  "pm.environment.set(\"auth_email\", response.email);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"emilys\",\r\n  \"password\": \"emilyspass\",\r\n  \"expiresInMins\": 30\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get current auth user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const user = pm.response.json();\r",
+                  "\r",
+                  "const expectedUserId = Number(pm.environment.get(\"auth_user_id\"));\r",
+                  "const expectedUsername = pm.environment.get(\"auth_username\");\r",
+                  "const expectedEmail = pm.environment.get(\"auth_email\");\r",
+                  "\r",
+                  "pm.test(\"Authenticated user ID matches login response\", function () {\r",
+                  "    pm.expect(user).to.have.property(\"id\");\r",
+                  "    pm.expect(user.id).to.eql(expectedUserId);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Authenticated username matches login response\", function () {\r",
+                  "    pm.expect(user).to.have.property(\"username\");\r",
+                  "    pm.expect(user.username).to.eql(expectedUsername);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Authenticated email matches login response\", function () {\r",
+                  "    pm.expect(user).to.have.property(\"email\");\r",
+                  "    pm.expect(user.email).to.eql(expectedEmail);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Authenticated user contains identity fields\", function () {\r",
+                  "    pm.expect(user).to.have.property(\"firstName\");\r",
+                  "    pm.expect(user).to.have.property(\"lastName\");\r",
+                  "    pm.expect(user).to.have.property(\"email\");\r",
+                  "\r",
+                  "    pm.expect(user.firstName).to.be.a(\"string\").and.not.empty;\r",
+                  "    pm.expect(user.lastName).to.be.a(\"string\").and.not.empty;\r",
+                  "    pm.expect(user.email).to.be.a(\"string\").and.include(\"@\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Authenticated user contains role\", function () {\r",
+                  "    pm.expect(user).to.have.property(\"role\");\r",
+                  "    pm.expect(user.role).to.be.a(\"string\").and.not.empty;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login with invalid credentials",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Response contains error message\", function () {\r",
+                  "    pm.expect(response).to.have.property(\"message\");\r",
+                  "    pm.expect(response.message).to.be.a(\"string\").and.not.empty;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Error message is Invalid credentials\", function () {\r",
+                  "    pm.expect(response.message).to.eql(\"Invalid credentials\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response does not contain access token\", function () {\r",
+                  "    pm.expect(response).to.not.have.property(\"accessToken\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response does not contain refresh token\", function () {\r",
+                  "    pm.expect(response).to.not.have.property(\"refreshToken\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"invalid_user\",\r\n  \"password\": \"wrong_password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
