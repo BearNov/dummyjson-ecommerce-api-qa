@@ -2,7 +2,7 @@
 
 I built this project to demonstrate API testing, backend validation thinking, SQL-based data validation, and beginner-level Python automation around one realistic e-commerce API domain.
 
-The project uses the DummyJSON E-Commerce API and focuses on practical QA areas such as products, product search, categories, carts, users, and authentication.
+The project uses the [DummyJSON E-Commerce API](https://dummyjson.com) and focuses on practical QA areas such as products, product search, categories, carts, users, and authentication.
 
 Because DummyJSON does not provide direct database access, I will use a local API-like dataset in the SQL section. This keeps the project honest while still showing how SQL can support backend-style validation and data consistency checks.
 
@@ -46,13 +46,13 @@ This project does not include:
 
 ## Tools Planned / Used
 
-- GitHub
-- Postman
+- [GitHub](https://github.com/)
+- [Postman](https://www.postman.com/)
 - SQL
-- SQLite
-- Python
-- pytest
-- requests
+- [SQLite](https://www.sqlite.org/)
+- [Python](https://www.python.org/)
+- [`pytest`](https://docs.pytest.org/)
+- [`requests`](https://requests.readthedocs.io/)
 
 ## Project Structure
 
@@ -84,12 +84,12 @@ dummyjson-ecommerce-api-qa
 
 | Folder | Purpose |
 |---|---|
-| `01-api-test-plan` | Documents the API testing scope, selected endpoints, risks, and test approach |
-| `02-postman-collection` | Stores the exported Postman collection and sanitized environment file |
-| `03-api-test-cases` | Contains documented API test cases and expected results |
-| `04-sql-validation` | Shows how I use local SQL validation with API-like e-commerce data |
-| `05-python-automation` | Will contain Python API automation in a later phase |
-| `06-test-summary` | Summarizes test execution results, findings, and project limitations |
+| [`01-api-test-plan`](./01-api-test-plan) | Documents the API testing scope, selected endpoints, risks, and test approach |
+| [`02-postman-collection`](./02-postman-collection) | Stores the exported Postman collection and sanitized environment file |
+| [`03-api-test-cases`](./03-api-test-cases) | Contains documented API test cases and expected results |
+| [`04-sql-validation`](./04-sql-validation) | Shows how I use local SQL validation with API-like e-commerce data |
+| [`05-python-automation`](./05-python-automation) | Will contain Python API automation in a later phase |
+| [`06-test-summary`](./06-test-summary) | Summarizes test execution results, findings, and project limitations |
 
 ## Current Status
 
