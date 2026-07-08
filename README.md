@@ -1,23 +1,26 @@
 # DummyJSON E-Commerce API QA Portfolio
 
-This project demonstrates API testing, backend validation thinking, SQL-based data validation, and beginner-level Python automation using the DummyJSON E-Commerce API.
+I built this project to demonstrate API testing, backend validation thinking, SQL-based data validation, and beginner-level Python automation around one realistic e-commerce API domain.
 
-The project focuses on realistic e-commerce API areas such as products, product search, categories, carts, users, and authentication.
+The project uses the DummyJSON E-Commerce API and focuses on practical QA areas such as products, product search, categories, carts, users, and authentication.
 
-Since DummyJSON does not provide direct database access, the SQL section will use a local API-like dataset to demonstrate data validation logic honestly and transparently.
+Because DummyJSON does not provide direct database access, I will use a local API-like dataset in the SQL section. This keeps the project honest while still showing how SQL can support backend-style validation and data consistency checks.
 
 ## Project Goals
 
-- Practice API testing using Postman
+In this project, I aim to show that I can:
+
+- Test REST API endpoints using Postman
 - Write clear API test cases and expected results
 - Validate e-commerce business rules such as cart totals, quantities, prices, and product references
-- Demonstrate SQL-based data validation logic
-- Later add beginner Python automation using requests and pytest
-- Build a clean QA portfolio project suitable for GitHub and CV usage
+- Use SQL to check local API-like data for consistency and data quality
+- Connect QA testing with data validation and analytical thinking
+- Later add beginner Python automation using `requests` and `pytest`
+- Build a clean QA portfolio project that can be reviewed through GitHub
 
 ## Scope
 
-This project will cover:
+This project currently covers:
 
 - Product listing API testing
 - Product details API testing
@@ -25,7 +28,7 @@ This project will cover:
 - Product category testing
 - Cart validation scenarios
 - User and cart relationship checks
-- Basic authentication testing if suitable
+- Basic authentication testing
 - Positive and negative API test cases
 - Postman assertions
 - SQL validation using local API-like datasets
@@ -33,7 +36,7 @@ This project will cover:
 
 ## Out of Scope
 
-This project will not include:
+This project does not include:
 
 - Real database validation against DummyJSON internal data
 - Performance or load testing
@@ -41,11 +44,12 @@ This project will not include:
 - Full UI testing
 - Production-level automation framework design
 
-## Tools Planned
+## Tools Planned / Used
 
 - GitHub
 - Postman
 - SQL
+- SQLite
 - Python
 - pytest
 - requests
@@ -55,17 +59,24 @@ This project will not include:
 ```text
 dummyjson-ecommerce-api-qa
 ├── 01-api-test-plan
-│   └── README.md
+│   ├── README.md
+│   ├── selected-endpoints.md
+│   └── api-exploration-notes.md
 ├── 02-postman-collection
-│   └── README.md
+│   ├── README.md
+│   ├── DummyJSON-E-Commerce-API-QA.postman_collection.json
+│   └── DummyJSON-Environment.postman_environment.json
 ├── 03-api-test-cases
-│   └── README.md
+│   ├── README.md
+│   └── api-test-cases.md
 ├── 04-sql-validation
-│   └── README.md
+│   ├── README.md
+│   └── sql-validation-plan.md
 ├── 05-python-automation
 │   └── README.md
 ├── 06-test-summary
-│   └── README.md
+│   ├── README.md
+│   └── postman-test-run-summary.md
 └── README.md
 ```
 
@@ -73,9 +84,26 @@ dummyjson-ecommerce-api-qa
 
 | Folder | Purpose |
 |---|---|
-| `01-api-test-plan` | Defines the API testing scope, selected endpoints, risks, and test approach |
-| `02-postman-collection` | Stores the Postman collection and environment files |
+| `01-api-test-plan` | Documents the API testing scope, selected endpoints, risks, and test approach |
+| `02-postman-collection` | Stores the exported Postman collection and sanitized environment file |
 | `03-api-test-cases` | Contains documented API test cases and expected results |
-| `04-sql-validation` | Demonstrates local SQL validation using API-like e-commerce data |
-| `05-python-automation` | Contains Python API automation added later in the project |
-| `06-test-summary` | Summarizes test execution results, findings, and limitations |
+| `04-sql-validation` | Shows how I use local SQL validation with API-like e-commerce data |
+| `05-python-automation` | Will contain Python API automation in a later phase |
+| `06-test-summary` | Summarizes test execution results, findings, and project limitations |
+
+## Current Status
+
+The first version of the Postman API testing phase is complete.
+
+Current Postman coverage:
+
+- 15 API requests
+- 114 automated assertions
+- 114 passed tests
+- 0 failed tests
+- Positive and negative API testing
+- Authentication token flow
+- Cart business-rule validation
+- User/cart relationship checks
+
+The SQL validation and Python automation phases will be added next.
