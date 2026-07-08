@@ -2,35 +2,26 @@
 
 ## Purpose
 
-This phase demonstrates SQL-based validation logic using local API-like datasets based on the DummyJSON e-commerce domain.
+In this phase, I use SQL to demonstrate backend-style data validation around the DummyJSON e-commerce domain.
 
-DummyJSON does not provide access to its real internal database.  
-Therefore, this project does not claim to validate DummyJSON's real backend database.
+DummyJSON provides API responses, but it does not provide direct access to its real internal database. Because of that, I am not claiming to validate DummyJSON's production database.
 
-Instead, this phase uses a small local dataset that represents API-like data for:
+Instead, I will create a small local API-like dataset that reflects the same business areas tested in Postman:
 
 - Users
 - Products
 - Carts
 - Cart items
 
-The goal is to demonstrate how a QA tester can use SQL to validate backend-style data rules, relationships, calculations, and data quality.
+I use this local dataset to show how SQL can support QA work by checking relationships, calculations, missing values, duplicates, and data consistency.
 
-## Why Local SQL Validation Is Used
+## Why I Use Local SQL Validation
 
-The DummyJSON API returns JSON responses, but it does not provide direct database access.
+The API returns JSON data, but I cannot query the real backend database behind DummyJSON.
 
-Because of that, SQL validation in this project is performed on a local dataset created from sample API response structures.
+To keep the project realistic and honest, I use local SQL validation as a simulation of backend data checks.
 
-This is useful for showing:
-
-- Data validation thinking
-- Relationship checks
-- Cart calculation checks
-- Duplicate detection
-- Missing data checks
-- Invalid value detection
-- SQL query writing ability
+This allows me to demonstrate how I would validate e-commerce data if I had access to structured database tables.
 
 ## Planned Tables
 
@@ -45,47 +36,51 @@ This is useful for showing:
 
 | Validation Area | Example Checks |
 |---|---|
-| User data | Missing names, duplicate user IDs, invalid emails |
-| Product data | Duplicate product IDs, negative prices, missing product names |
-| Cart data | Missing user IDs, invalid cart totals, invalid quantities |
-| Cart items | Product quantity checks, product total checks, discounted total checks |
+| User data | Missing names, duplicate user IDs, invalid email format |
+| Product data | Duplicate product IDs, missing titles, negative prices |
+| Cart data | Missing users, invalid totals, invalid quantities |
+| Cart items | Invalid product references, incorrect line totals, invalid discounted totals |
 | Relationships | Cart user ID exists in users table, cart item product ID exists in products table |
 | Calculations | Cart total equals sum of item totals, total quantity equals sum of item quantities |
 
-## Example SQL Validation Questions
+## SQL Validation Questions
 
-The SQL queries will answer questions such as:
+The SQL queries will help me answer questions such as:
 
 - Are there duplicate user IDs?
+- Are there users with missing names or invalid emails?
+- Are there duplicate product IDs?
 - Are there products with missing titles?
 - Are there products with negative prices?
-- Are there carts connected to missing users?
-- Are there cart items connected to missing products?
+- Are there carts connected to users that do not exist?
+- Are there cart items connected to products that do not exist?
 - Does each cart total match the sum of its product line totals?
+- Does each cart discounted total match the sum of discounted item totals?
 - Does each cart total quantity match the sum of item quantities?
 - Are there invalid product quantities?
-- Are there invalid discounted totals?
 
 ## Data Analyst Connection
 
-This phase also demonstrates data analyst skills because it uses SQL to inspect, validate, and summarize structured data.
+I use this SQL phase to connect QA testing with data validation and analytical thinking.
 
-The focus is not only on whether the API responds successfully, but also whether the returned business data is internally consistent.
+The Postman collection checks whether the API responds correctly.
 
-This connects QA testing with data validation and analytical thinking.
+The SQL validation phase goes one step deeper by checking whether the business data is internally consistent.
+
+This is useful because many QA issues are not only technical API failures. Some issues appear as incorrect totals, missing relationships, duplicate records, invalid values, or inconsistent data.
 
 ## Tools Planned
 
-The SQL validation phase may use:
+For this phase, I plan to use:
 
 - SQLite
 - DB Browser for SQLite
 - SQL scripts
-- Local CSV or insert-based sample data
+- Local sample data
 - Markdown documentation
 
 ## Important Limitation
 
 This phase is a local validation simulation based on API-like data.
 
-It does not validate DummyJSON's production database and does not claim direct database access.
+It does not validate DummyJSON's real production database and does not claim direct database access.
