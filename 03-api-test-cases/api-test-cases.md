@@ -1,6 +1,6 @@
 # API Test Cases
 
-This document summarizes the API test cases covered in the Postman collection for the DummyJSON E-Commerce API QA project.
+I created this document to summarize the API test cases covered in my Postman collection for the DummyJSON E-Commerce API QA project.
 
 The test cases focus on functional API behavior, response structure, data validation, relationship validation, authentication, and negative testing.
 
@@ -8,25 +8,25 @@ The test cases focus on functional API behavior, response structure, data valida
 
 | TC ID | Area | Test Case | Method | Endpoint | Expected Result |
 |---|---|---|---|---|---|
-| API-TC-001 | Products | Get all products | GET | `/products` | Product list is returned with pagination fields |
-| API-TC-002 | Products | Get product by ID | GET | `/products/1` | Product ID 1 is returned with required product fields |
-| API-TC-003 | Products | Search products by keyword | GET | `/products/search?q=phone` | Products related to the search keyword are returned |
-| API-TC-004 | Products | Get products with pagination | GET | `/products?limit=10&skip=10` | API returns 10 products and correct pagination values |
-| API-TC-005 | Products | Get product categories | GET | `/products/categories` | Category list is returned with slug, name, and URL |
-| API-TC-006 | Products | Get products by category | GET | `/products/category/smartphones` | Returned products belong to the smartphones category |
-| API-TC-007 | Carts | Get all carts | GET | `/carts` | Cart list is returned with cart totals and product lines |
-| API-TC-008 | Carts | Get cart by ID | GET | `/carts/1` | Cart ID 1 is returned with valid totals and quantities |
-| API-TC-009 | Carts | Get carts by user | GET | `/carts/user/5` | Returned carts belong to user ID 5 |
-| API-TC-010 | Users | Get all users | GET | `/users` | User list is returned with identity fields and unique user IDs |
-| API-TC-011 | Users | Get user by ID | GET | `/users/1` | User ID 1 is returned with identity, address, and company data |
-| API-TC-012 | Users | Get user carts | GET | `/users/5/carts` | User ID 5 carts are returned and cart totals are valid |
-| API-TC-013 | Authentication | Login user | POST | `/auth/login` | Valid login returns user data, access token, and refresh token |
-| API-TC-014 | Authentication | Get current authenticated user | GET | `/auth/me` | Bearer token returns the authenticated user profile |
-| API-TC-015 | Authentication | Login with invalid credentials | POST | `/auth/login` | Invalid credentials return 400 and no tokens |
+| API-TC-001 | Products | Get all products | GET | [`/products`](https://dummyjson.com/products) | Product list is returned with pagination fields |
+| API-TC-002 | Products | Get product by ID | GET | [`/products/1`](https://dummyjson.com/products/1) | Product ID 1 is returned with required product fields |
+| API-TC-003 | Products | Search products by keyword | GET | [`/products/search?q=phone`](https://dummyjson.com/products/search?q=phone) | Products related to the search keyword are returned |
+| API-TC-004 | Products | Get products with pagination | GET | [`/products?limit=10&skip=10`](https://dummyjson.com/products?limit=10&skip=10) | API returns 10 products and correct pagination values |
+| API-TC-005 | Products | Get product categories | GET | [`/products/categories`](https://dummyjson.com/products/categories) | Category list is returned with slug, name, and URL |
+| API-TC-006 | Products | Get products by category | GET | [`/products/category/smartphones`](https://dummyjson.com/products/category/smartphones) | Returned products belong to the smartphones category |
+| API-TC-007 | Carts | Get all carts | GET | [`/carts`](https://dummyjson.com/carts) | Cart list is returned with cart totals and product lines |
+| API-TC-008 | Carts | Get cart by ID | GET | [`/carts/1`](https://dummyjson.com/carts/1) | Cart ID 1 is returned with valid totals and quantities |
+| API-TC-009 | Carts | Get carts by user | GET | [`/carts/user/5`](https://dummyjson.com/carts/user/5) | Returned carts belong to user ID 5 |
+| API-TC-010 | Users | Get all users | GET | [`/users`](https://dummyjson.com/users) | User list is returned with identity fields and unique user IDs |
+| API-TC-011 | Users | Get user by ID | GET | [`/users/1`](https://dummyjson.com/users/1) | User ID 1 is returned with identity, address, and company data |
+| API-TC-012 | Users | Get user carts | GET | [`/users/5/carts`](https://dummyjson.com/users/5/carts) | User ID 5 carts are returned and cart totals are valid |
+| API-TC-013 | Authentication | Login user | POST | [`/auth/login`](https://dummyjson.com/auth/login) | Valid login returns user data, access token, and refresh token |
+| API-TC-014 | Authentication | Get current authenticated user | GET | [`/auth/me`](https://dummyjson.com/auth/me) | Bearer token returns the authenticated user profile |
+| API-TC-015 | Authentication | Login with invalid credentials | POST | [`/auth/login`](https://dummyjson.com/auth/login) | Invalid credentials return 400 and no tokens |
 
 ## Validation Types Covered
 
-The Postman tests validate:
+In the Postman tests, I validate:
 
 - HTTP status codes
 - Response body structure
@@ -41,16 +41,16 @@ The Postman tests validate:
 - Cart quantity calculations
 - User identity fields
 - Unique user IDs
-- User-cart relationships
+- User/cart relationships
 - Authentication token generation
 - Authenticated user retrieval
-- Invalid login negative behavior
+- Invalid login behavior
 
 ## Cart Calculation Checks
 
 Several cart-related tests validate business logic, not only response structure.
 
-The tests check that:
+I check that:
 
 | Validation | Description |
 |---|---|
@@ -60,13 +60,13 @@ The tests check that:
 | `discountedTotal` | Matches the sum of product discounted totals |
 | Numeric values | Prices, quantities, totals, discounts, and IDs are valid numbers |
 
-A small calculation tolerance is used for total comparisons because API responses may include decimal rounding differences.
+I used a small calculation tolerance for total comparisons because API responses can include decimal rounding differences.
 
 ## Authentication Flow
 
 The authentication tests cover a basic token-based flow:
 
-1. `Login user` sends valid credentials.
+1. `Login user` sends valid demo credentials.
 2. The response returns an `accessToken`.
 3. The token is saved into the Postman environment as `access_token`.
 4. `Get current auth user` uses `{{access_token}}` as a Bearer token.
@@ -74,7 +74,7 @@ The authentication tests cover a basic token-based flow:
 
 ## Negative Testing
 
-The collection includes a negative authentication test:
+I added a negative authentication test for invalid login behavior.
 
 | Test | Expected Result |
 |---|---|
@@ -87,7 +87,7 @@ This test also verifies that invalid login does not return:
 
 ## Current Execution Result
 
-The first full Postman collection run completed successfully:
+The first full Postman collection run completed successfully.
 
 | Metric | Result |
 |---|---:|
