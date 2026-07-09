@@ -106,4 +106,27 @@ Current Postman coverage:
 - Cart business-rule validation
 - User/cart relationship checks
 
-The SQL validation and Python automation phases will be added next.
+The SQL validation phase is also complete.
+
+Current SQL validation coverage:
+
+- Local SQLite database schema
+- Local API-like sample data
+- Record count validation
+- Duplicate ID checks
+- Required-field checks
+- Email format check
+- Numeric value checks
+- Relationship checks between users, carts, cart items, and products
+- Cart item total validation
+- Cart total validation
+- Cart discounted total validation
+- Cart product count validation
+- Cart quantity validation
+- Joined cart detail view
+
+The SQL validation results are documented in:
+
+[`04-sql-validation/sql-validation-results.md`](./04-sql-validation/sql-validation-results.md)
+
+The next planned phase is beginner-level Python API automation.
