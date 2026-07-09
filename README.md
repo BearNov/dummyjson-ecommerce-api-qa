@@ -71,7 +71,11 @@ dummyjson-ecommerce-api-qa
 │   └── api-test-cases.md
 ├── 04-sql-validation
 │   ├── README.md
-│   └── sql-validation-plan.md
+│   ├── sql-validation-plan.md
+│   ├── schema.sql
+│   ├── sample-data.sql
+│   ├── validation-queries.sql
+│   └── sql-validation-results.md
 ├── 05-python-automation
 │   └── README.md
 ├── 06-test-summary
@@ -87,8 +91,7 @@ dummyjson-ecommerce-api-qa
 | [`01-api-test-plan`](./01-api-test-plan) | Documents the API testing scope, selected endpoints, risks, and test approach |
 | [`02-postman-collection`](./02-postman-collection) | Stores the exported Postman collection and sanitized environment file |
 | [`03-api-test-cases`](./03-api-test-cases) | Contains documented API test cases and expected results |
-| [`04-sql-validation`](./04-sql-validation) | Shows how I use local SQL validation with API-like e-commerce data |
-| [`05-python-automation`](./05-python-automation) | Will contain Python API automation in a later phase |
+| [`04-sql-validation`](./04-sql-validation) | Contains the local SQL validation plan, schema, sample data, validation queries, and results || [`05-python-automation`](./05-python-automation) | Will contain Python API automation in a later phase |
 | [`06-test-summary`](./06-test-summary) | Summarizes test execution results, findings, and project limitations |
 
 ## Current Status
