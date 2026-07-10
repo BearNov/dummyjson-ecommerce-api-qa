@@ -39,3 +39,39 @@ def test_get_all_carts():
 
     assert first_cart["totalProducts"] == calculated_total_products
     assert first_cart["totalQuantity"] == calculated_total_quantity
+
+
+def test_get_cart_by_id():
+    response = requests.get(f"{BASE_URL}/carts/1")
+
+    assert response.status_code == 200
+
+    cart = response.json()
+
+    assert cart["id"] == 1
+
+    assert "products" in cart
+    assert "total" in cart
+    assert "discountedTotal" in cart
+    assert "userId" in cart
+    assert "totalProducts" in cart
+    assert "totalQuantity" in cart
+
+    assert isinstance(cart["products"], list)
+    assert len(cart["products"]) > 0
+
+    calculated_total_products = len(cart["products"])
+    calculated_total_quantity = sum(
+        product["quantity"] for product in cart["products"]
+    )
+    calculated_total = sum(
+        product["total"] for product in cart["products"]
+    )
+    calculated_discounted_total = sum(
+        product["discountedTotal"] for product in cart["products"]
+    )
+
+    assert cart["totalProducts"] == calculated_total_products
+    assert cart["totalQuantity"] == calculated_total_quantity
+    assert round(cart["total"], 2) == round(calculated_total, 2)
+    assert round(cart["discountedTotal"], 2) == round(calculated_discounted_total, 2)
