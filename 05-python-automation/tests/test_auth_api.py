@@ -70,3 +70,22 @@ def test_get_current_auth_user():
     assert user["firstName"] != ""
     assert user["lastName"] != ""
     assert user["role"] != ""
+
+
+def test_login_with_invalid_credentials():
+    payload = {
+        "username": "invalid_user",
+        "password": "wrong_password"
+    }
+
+    response = requests.post(f"{BASE_URL}/auth/login", json=payload)
+
+    assert response.status_code == 400
+
+    data = response.json()
+
+    assert "message" in data
+    assert data["message"] == "Invalid credentials"
+
+    assert "accessToken" not in data
+    assert "refreshToken" not in data
