@@ -55,6 +55,56 @@ This project does not include:
 - [`pytest`](https://docs.pytest.org/)
 - [`requests`](https://requests.readthedocs.io/)
 
+## How to Run
+
+### Postman Collection
+
+1. Open [Postman](https://www.postman.com/).
+2. Import the collection file:
+
+   [`02-postman-collection/DummyJSON-E-Commerce-API-QA.postman_collection.json`](./02-postman-collection/DummyJSON-E-Commerce-API-QA.postman_collection.json)
+
+3. Import the environment file:
+
+   [`02-postman-collection/DummyJSON-Environment.postman_environment.json`](./02-postman-collection/DummyJSON-Environment.postman_environment.json)
+
+4. Select `DummyJSON Environment`.
+5. Run the full collection from the Postman Collection Runner.
+
+### SQL Validation
+
+1. Open [DB Browser for SQLite](https://sqlitebrowser.org/).
+2. Create a local SQLite database file.
+3. Run the SQL files in this order:
+
+   - [`04-sql-validation/schema.sql`](./04-sql-validation/schema.sql)
+   - [`04-sql-validation/sample-data.sql`](./04-sql-validation/sample-data.sql)
+   - [`04-sql-validation/validation-queries.sql`](./04-sql-validation/validation-queries.sql)
+
+4. Review the documented results here:
+
+   [`04-sql-validation/sql-validation-results.md`](./04-sql-validation/sql-validation-results.md)
+
+### Python Automation
+
+1. Open a terminal inside the `05-python-automation` folder.
+2. Create and activate a virtual environment.
+3. Install the required packages:
+
+   ```bash
+   py -m pip install -r requirements.txt
+   ```
+
+4. Run the Python test suite:
+
+   ```bash
+   py -m pytest
+   ```
+
+5. Review the documented results here:
+
+   [`06-test-summary/python-test-run-summary.md`](./06-test-summary/python-test-run-summary.md)
+
 ## Project Structure
 
 ```text
