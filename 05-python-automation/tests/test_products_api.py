@@ -111,3 +111,28 @@ def test_get_products_with_pagination():
     assert "title" in first_product
     assert "category" in first_product
     assert "price" in first_product
+
+
+def test_get_product_categories():
+    response = requests.get(f"{BASE_URL}/products/categories")
+
+    assert response.status_code == 200
+
+    categories = response.json()
+
+    assert isinstance(categories, list)
+    assert len(categories) > 0
+
+    first_category = categories[0]
+
+    assert "slug" in first_category
+    assert "name" in first_category
+    assert "url" in first_category
+
+    assert first_category["slug"] != ""
+    assert first_category["name"] != ""
+    assert first_category["url"] != ""
+
+    category_slugs = [category["slug"] for category in categories]
+
+    assert "smartphones" in category_slugs
