@@ -1,5 +1,7 @@
 # DummyJSON E-Commerce API QA Portfolio
 
+I built this project to demonstrate API testing, backend validation thinking, SQL-based data validation, and beginner-level Python automation around one realistic e-commerce API domain.
+
 ## Project Highlights
 
 | Area | Result |
@@ -9,8 +11,6 @@
 | Python automation tests passed | 15 |
 | SQL validation checks | 15 checks + joined view |
 | Main testing layers | Postman, SQL, Python |
-
-I built this project to demonstrate API testing, backend validation thinking, SQL-based data validation, and beginner-level Python automation around one realistic e-commerce API domain.
 
 The project uses the [DummyJSON E-Commerce API](https://dummyjson.com) and focuses on practical QA areas such as products, product search, categories, carts, users, and authentication.
 
