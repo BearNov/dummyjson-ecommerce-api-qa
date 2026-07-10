@@ -82,3 +82,32 @@ def test_search_products_by_keyword():
     ]).lower()
 
     assert search_keyword in searchable_text
+
+
+def test_get_products_with_pagination():
+    response = requests.get(
+        f"{BASE_URL}/products",
+        params={"limit": 10, "skip": 10}
+    )
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert "products" in data
+    assert "total" in data
+    assert "skip" in data
+    assert "limit" in data
+
+    assert data["skip"] == 10
+    assert data["limit"] == 10
+
+    assert isinstance(data["products"], list)
+    assert len(data["products"]) == 10
+
+    first_product = data["products"][0]
+
+    assert "id" in first_product
+    assert "title" in first_product
+    assert "category" in first_product
+    assert "price" in first_product
