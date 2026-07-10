@@ -25,3 +25,24 @@ def test_get_all_products():
     assert "title" in first_product
     assert "category" in first_product
     assert "price" in first_product
+
+
+def test_get_product_by_id():
+    response = requests.get(f"{BASE_URL}/products/1")
+
+    assert response.status_code == 200
+
+    product = response.json()
+
+    assert product["id"] == 1
+
+    assert "title" in product
+    assert "category" in product
+    assert "price" in product
+    assert "stock" in product
+
+    assert product["title"] != ""
+    assert product["category"] != ""
+
+    assert isinstance(product["price"], (int, float))
+    assert product["price"] >= 0
