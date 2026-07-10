@@ -136,3 +136,31 @@ def test_get_product_categories():
     category_slugs = [category["slug"] for category in categories]
 
     assert "smartphones" in category_slugs
+
+
+def test_get_products_by_category():
+    category = "smartphones"
+
+    response = requests.get(f"{BASE_URL}/products/category/{category}")
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert "products" in data
+    assert "total" in data
+    assert "skip" in data
+    assert "limit" in data
+
+    assert isinstance(data["products"], list)
+    assert len(data["products"]) > 0
+
+    for product in data["products"]:
+        assert product["category"] == category
+
+    first_product = data["products"][0]
+
+    assert "id" in first_product
+    assert "title" in first_product
+    assert "category" in first_product
+    assert "price" in first_product
