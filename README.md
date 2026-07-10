@@ -15,7 +15,7 @@ In this project, I aim to show that I can:
 - Validate e-commerce business rules such as cart totals, quantities, prices, and product references
 - Use SQL to check local API-like data for consistency and data quality
 - Connect QA testing with data validation and analytical thinking
-- Later add beginner Python automation using `requests` and `pytest`
+- Automate API tests with Python using `requests` and `pytest`
 - Build a clean QA portfolio project that can be reviewed through GitHub
 
 ## Scope
@@ -32,7 +32,7 @@ This project currently covers:
 - Positive and negative API test cases
 - Postman assertions
 - SQL validation using local API-like datasets
-- Python automation in a later phase
+- Python API automation with `requests` and `pytest`
 
 ## Out of Scope
 
@@ -100,9 +100,9 @@ dummyjson-ecommerce-api-qa
 | [`01-api-test-plan`](./01-api-test-plan) | Documents the API testing scope, selected endpoints, risks, and test approach |
 | [`02-postman-collection`](./02-postman-collection) | Stores the exported Postman collection and sanitized environment file |
 | [`03-api-test-cases`](./03-api-test-cases) | Contains documented API test cases and expected results |
-| [`04-sql-validation`](./04-sql-validation) | Contains the local SQL validation plan, schema, sample data, validation queries, and results || [`05-python-automation`](./05-python-automation) | Will contain Python API automation in a later phase |
+| [`04-sql-validation`](./04-sql-validation) | Contains the local SQL validation plan, schema, sample data, validation queries, and results |
 | [`05-python-automation`](./05-python-automation) | Contains Python API automation tests using `requests` and `pytest` |
-| [`06-test-summary`](./06-test-summary) | Summarizes test execution results, findings, and project limitations |
+| [`06-test-summary`](./06-test-summary) | Summarizes test execution results, findings, project limitations, and final project summary |
 
 ## Current Status
 
