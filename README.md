@@ -77,10 +77,17 @@ dummyjson-ecommerce-api-qa
 │   ├── validation-queries.sql
 │   └── sql-validation-results.md
 ├── 05-python-automation
-│   └── README.md
+│   ├── README.md
+│   ├── requirements.txt
+│   └── tests
+│       ├── test_products_api.py
+│       ├── test_carts_api.py
+│       ├── test_users_api.py
+│       └── test_auth_api.py
 ├── 06-test-summary
 │   ├── README.md
-│   └── postman-test-run-summary.md
+│   ├── postman-test-run-summary.md
+│   └── python-test-run-summary.md
 └── README.md
 ```
 
@@ -92,6 +99,7 @@ dummyjson-ecommerce-api-qa
 | [`02-postman-collection`](./02-postman-collection) | Stores the exported Postman collection and sanitized environment file |
 | [`03-api-test-cases`](./03-api-test-cases) | Contains documented API test cases and expected results |
 | [`04-sql-validation`](./04-sql-validation) | Contains the local SQL validation plan, schema, sample data, validation queries, and results || [`05-python-automation`](./05-python-automation) | Will contain Python API automation in a later phase |
+| [`05-python-automation`](./05-python-automation) | Contains Python API automation tests using `requests` and `pytest` |
 | [`06-test-summary`](./06-test-summary) | Summarizes test execution results, findings, and project limitations |
 
 ## Current Status
@@ -128,8 +136,23 @@ Current SQL validation coverage:
 - Cart quantity validation
 - Joined cart detail view
 
-The SQL validation results are documented in:
+The Python automation phase is complete for the first project version.
 
-[`04-sql-validation/sql-validation-results.md`](./04-sql-validation/sql-validation-results.md)
+Current Python automation coverage:
 
-The next planned phase is beginner-level Python API automation.
+- 15 Python API tests
+- 15 passed tests
+- 0 failed tests
+- Product API tests
+- Cart API tests
+- User API tests
+- Authentication tests
+- Invalid login negative test
+- Cart calculation validation
+- User/cart relationship validation
+
+Detailed results are documented in:
+
+- [`04-sql-validation/sql-validation-results.md`](./04-sql-validation/sql-validation-results.md)
+- [`06-test-summary/postman-test-run-summary.md`](./06-test-summary/postman-test-run-summary.md)
+- [`06-test-summary/python-test-run-summary.md`](./06-test-summary/python-test-run-summary.md)
