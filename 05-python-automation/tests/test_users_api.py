@@ -36,3 +36,35 @@ def test_get_all_users():
 
     assert len(user_ids) == len(set(user_ids))
     assert 5 in user_ids
+
+
+def test_get_user_by_id():
+    response = requests.get(f"{BASE_URL}/users/1")
+
+    assert response.status_code == 200
+
+    user = response.json()
+
+    assert user["id"] == 1
+
+    assert "firstName" in user
+    assert "lastName" in user
+    assert "email" in user
+    assert "username" in user
+    assert "role" in user
+
+    assert user["firstName"] != ""
+    assert user["lastName"] != ""
+    assert "@" in user["email"]
+
+    assert "address" in user
+    assert isinstance(user["address"], dict)
+
+    assert "city" in user["address"]
+    assert "country" in user["address"]
+
+    assert "company" in user
+    assert isinstance(user["company"], dict)
+
+    assert "name" in user["company"]
+    assert "department" in user["company"]
