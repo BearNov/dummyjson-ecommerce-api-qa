@@ -4,7 +4,7 @@ I built this project to demonstrate API testing, backend validation thinking, SQ
 
 The project uses the [DummyJSON E-Commerce API](https://dummyjson.com) and focuses on practical QA areas such as products, product search, categories, carts, users, and authentication.
 
-Because DummyJSON does not provide direct database access, I will use a local API-like dataset in the SQL section. This keeps the project honest while still showing how SQL can support backend-style validation and data consistency checks.
+Because DummyJSON does not provide direct database access, I use a local API-like dataset in the SQL section. This keeps the project honest while still showing how SQL can support backend-style validation and data consistency checks.
 
 ## Project Goals
 
@@ -44,12 +44,13 @@ This project does not include:
 - Full UI testing
 - Production-level automation framework design
 
-## Tools Planned / Used
+## Tools Used
 
 - [GitHub](https://github.com/)
 - [Postman](https://www.postman.com/)
 - SQL
 - [SQLite](https://www.sqlite.org/)
+- [DB Browser for SQLite](https://sqlitebrowser.org/)
 - [Python](https://www.python.org/)
 - [`pytest`](https://docs.pytest.org/)
 - [`requests`](https://requests.readthedocs.io/)
@@ -87,7 +88,7 @@ dummyjson-ecommerce-api-qa
 ├── 06-test-summary
 │   ├── README.md
 │   ├── postman-test-run-summary.md
-│   └── python-test-run-summary.md
+│   ├── python-test-run-summary.md
 │   └── final-project-summary.md
 ├── .gitignore
 └── README.md
