@@ -1,53 +1,86 @@
 # Python Automation
 
-In this folder, I will add beginner-level Python API automation for the DummyJSON E-Commerce API QA project.
+In this folder, I document the Python API automation phase of the DummyJSON E-Commerce API QA project.
 
-The goal of this section is to show how I can take part of the API testing work from Postman and automate it with Python.
+The goal of this section is to show how I took part of the API testing work from Postman and automated it with Python using `requests` and `pytest`.
 
-This phase will be added after the Postman and SQL validation sections are complete.
+## Files
 
-## Planned Tools
+| File | Purpose |
+|---|---|
+| [`requirements.txt`](./requirements.txt) | Lists the Python packages required to run the automation suite |
+| [`tests/test_products_api.py`](./tests/test_products_api.py) | Contains Python tests for product endpoints |
+| [`tests/test_carts_api.py`](./tests/test_carts_api.py) | Contains Python tests for cart endpoints and cart calculations |
+| [`tests/test_users_api.py`](./tests/test_users_api.py) | Contains Python tests for user endpoints and user/cart relationships |
+| [`tests/test_auth_api.py`](./tests/test_auth_api.py) | Contains Python tests for authentication and invalid login behavior |
+
+## Tools Used
 
 | Tool | Purpose |
 |---|---|
 | [Python](https://www.python.org/) | Main programming language for the automation scripts |
-| [`requests`](https://requests.readthedocs.io/en/latest/) | Used to send API requests |
-| [`pytest`](https://docs.pytest.org/) | Used to write and run automated tests |
-| JSON assertions | Used to validate API response data |
+| [`requests`](https://requests.readthedocs.io/) | Sends HTTP API requests |
+| [`pytest`](https://docs.pytest.org/) | Runs the automated test suite |
 
-## Planned Content
+## Test Coverage
 
-I plan to include:
+The Python automation suite currently includes 15 tests.
 
-- Python test setup
-- `requests`-based API calls
-- `pytest` test files
-- JSON response validation
-- Positive API tests
-- Negative API tests
-- Simple test execution report
+| Area | Test Count | Covered Behavior |
+|---|---:|---|
+| Products API | 6 | Product list, product by ID, search, pagination, categories, products by category |
+| Carts API | 3 | Cart list, cart by ID, carts by user, cart totals, quantities, discounted totals |
+| Users API | 3 | User list, user by ID, user carts, user/cart relationship |
+| Authentication API | 3 | Valid login, current authenticated user, invalid login negative test |
 
-## Planned Test Areas
+## What I Validate
 
-The first Python automation version will likely focus on:
+The Python tests validate:
 
-- Products API
-- Product search
-- Carts API
-- User/cart relationship checks
-- Authentication flow
-- Invalid login negative test
+- HTTP status codes
+- Response structure
+- Required fields
+- Non-empty values
+- Product search relevance
+- Product pagination behavior
+- Product category filtering
+- Cart total product calculations
+- Cart total quantity calculations
+- Cart total calculations
+- Cart discounted total calculations
+- User identity fields
+- User/cart relationships
+- Authentication token generation
+- Authenticated user retrieval
+- Invalid login error handling
 
-## Why This Section Matters
+## How to Run the Tests Locally
 
-The Postman collection already shows manual API test design with automated assertions.
+From inside the Python automation folder, install the required packages:
 
-The Python automation phase will show that I can also write basic code-based API tests and run them as a small automation suite.
+`py -m pip install -r requirements.txt`
 
-This connects the project to entry-level QA automation skills while keeping the scope realistic and beginner-friendly.
+Then run the test suite:
 
-## Current Status
+`py -m pytest`
 
-This section is planned.
+## Current Result
 
-The Postman API testing phase is complete, and the SQL validation phase will be built before the Python automation phase.
+The first Python automation run completed successfully.
+
+| Metric | Result |
+|---|---:|
+| Total tests | 15 |
+| Passed tests | 15 |
+| Failed tests | 0 |
+| Errors | 0 |
+
+The detailed Python test run summary is documented here:
+
+[`06-test-summary/python-test-run-summary.md`](../06-test-summary/python-test-run-summary.md)
+
+## Important Note
+
+These tests run against the public [DummyJSON API](https://dummyjson.com).
+
+Because this is a public API, response data may change over time. The tests focus on stable API structure, relationships, and business-rule checks rather than fragile assumptions about every returned value.
