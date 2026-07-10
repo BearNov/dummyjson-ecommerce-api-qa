@@ -14,11 +14,12 @@ The goal of this section is to make the project results easy to review without n
 
 ## Current Test Summary
 
-The first Postman collection run and first Python automation run were both completed successfully.
+The first Postman collection run, SQL validation phase, and Python automation run were completed successfully.
 
-| Test Layer | Total Tests | Passed | Failed | Errors | Status |
+| Test Layer | Total Checks | Passed | Failed | Errors | Status |
 |---|---:|---:|---:|---:|---|
 | Postman API tests | 114 assertions | 114 | 0 | 0 | PASS |
+| SQL validation checks | 15 validation checks + joined view | 15 checks + joined view | 0 | 0 | PASS |
 | Python automation tests | 15 tests | 15 | 0 | 0 | PASS |
 
 ## Postman Tested Areas
