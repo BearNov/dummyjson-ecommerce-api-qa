@@ -59,7 +59,7 @@ The Python automation suite covers:
 
 ## SQL Validation Summary
 
-The SQL validation phase was executed locally using DB Browser for SQLite.
+The SQL validation phase was executed locally using [DB Browser for SQLite](https://sqlitebrowser.org/).
 
 The SQL validation covered:
 
