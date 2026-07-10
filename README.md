@@ -88,6 +88,7 @@ dummyjson-ecommerce-api-qa
 │   ├── README.md
 │   ├── postman-test-run-summary.md
 │   └── python-test-run-summary.md
+│   └── final-project-summary.md
 └── README.md
 ```
 
@@ -156,3 +157,4 @@ Detailed results are documented in:
 - [`04-sql-validation/sql-validation-results.md`](./04-sql-validation/sql-validation-results.md)
 - [`06-test-summary/postman-test-run-summary.md`](./06-test-summary/postman-test-run-summary.md)
 - [`06-test-summary/python-test-run-summary.md`](./06-test-summary/python-test-run-summary.md)
+- [`06-test-summary/final-project-summary.md`](./06-test-summary/final-project-summary.md)
