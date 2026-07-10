@@ -89,6 +89,7 @@ dummyjson-ecommerce-api-qa
 │   ├── postman-test-run-summary.md
 │   └── python-test-run-summary.md
 │   └── final-project-summary.md
+├── .gitignore
 └── README.md
 ```
 
