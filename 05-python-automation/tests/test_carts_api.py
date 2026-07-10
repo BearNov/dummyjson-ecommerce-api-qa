@@ -75,3 +75,46 @@ def test_get_cart_by_id():
     assert cart["totalQuantity"] == calculated_total_quantity
     assert round(cart["total"], 2) == round(calculated_total, 2)
     assert round(cart["discountedTotal"], 2) == round(calculated_discounted_total, 2)
+
+
+def test_get_carts_by_user():
+    user_id = 5
+
+    response = requests.get(f"{BASE_URL}/carts/user/{user_id}")
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert "carts" in data
+    assert "total" in data
+    assert "skip" in data
+    assert "limit" in data
+
+    assert isinstance(data["carts"], list)
+    assert len(data["carts"]) > 0
+
+    for cart in data["carts"]:
+        assert cart["userId"] == user_id
+
+        assert "products" in cart
+        assert "total" in cart
+        assert "discountedTotal" in cart
+        assert "totalProducts" in cart
+        assert "totalQuantity" in cart
+
+        calculated_total_products = len(cart["products"])
+        calculated_total_quantity = sum(
+            product["quantity"] for product in cart["products"]
+        )
+        calculated_total = sum(
+            product["total"] for product in cart["products"]
+        )
+        calculated_discounted_total = sum(
+            product["discountedTotal"] for product in cart["products"]
+        )
+
+        assert cart["totalProducts"] == calculated_total_products
+        assert cart["totalQuantity"] == calculated_total_quantity
+        assert round(cart["total"], 2) == round(calculated_total, 2)
+        assert round(cart["discountedTotal"], 2) == round(calculated_discounted_total, 2)
