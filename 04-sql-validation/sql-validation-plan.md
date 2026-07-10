@@ -94,7 +94,7 @@ For most issue-detection queries, the expected result is:
 
 In this project, `0 rows returned` means the query did not find a data issue.
 
-For the final joined cart view, the expected result is rows returned, because that query is used to display connected user, cart, cart item, and product data.
+For the final joined cart view, the expected result is rows returned, because that query is used to display connected user, cart item, and product data.
 
 ## Execution Summary
 
